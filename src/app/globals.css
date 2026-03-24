@@ -1,26 +1,87 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Moonlit Snow Leopard Palette */
+  --midnight-bg: #080c12;
+  --pearl-amber: #c8a882;
+  --glacier-blue: #7b9cba;
+  --soft-white: #e8e4dc;
+  --copper-glow: #d4956a;
+  
+  /* Animation Settings */
+  --cursor-blink: 800ms;
+  --scanline-opacity: 0.03;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: var(--midnight-bg);
+  color: var(--pearl-amber);
+  font-family: var(--font-mono), monospace;
+}
+
+/* CRT Scanline Overlay */
+.crt-scanline {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, var(--scanline-opacity)) 0px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Cursor Blink Animation */
+.cursor-blink {
+  animation: blink var(--cursor-blink) step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Copper Glow Active State */
+.agent-active {
+  outline: 2px solid var(--copper-glow);
+  filter: drop-shadow(0 0 8px var(--copper-glow));
+}
+
+/* Glacier Blue Stats Box */
+.stat-box {
+  border: 1px solid var(--glacier-blue);
+  color: var(--glacier-blue);
+  box-shadow: 0 0 10px rgba(123, 156, 186, 0.3);
+  background: rgba(8, 12, 18, 0.8);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--midnight-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glacier-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--copper-glow);
 }
