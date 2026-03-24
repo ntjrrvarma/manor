@@ -1,5 +1,5 @@
 'use client';
-
+import ChatInterface from '@/components/ui/ChatInterface';
 import { useState, useEffect } from 'react';
 import CRTOverlay from '@/components/ui/CRTOverlay';
 import StatBox from '@/components/ui/StatBox';
