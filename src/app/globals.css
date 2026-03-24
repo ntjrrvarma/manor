@@ -103,3 +103,31 @@ body {
 .content-layer > * {
   pointer-events: auto;
 }
+
+/* Performance Optimizations */
+* {
+  will-change: auto;
+}
+
+.agent-active,
+.crt-scanline,
+.cursor-blink {
+  will-change: transform, opacity;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU Acceleration for 3D */
+.canvas-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

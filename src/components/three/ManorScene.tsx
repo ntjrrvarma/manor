@@ -8,6 +8,8 @@ import ManorStructure from './ManorStructure';
 import CameraController from './CameraController';
 import Agent3D from './Agent3D';
 import { agents } from '@/lib/agents';
+import InteractiveProps from './InteractiveProps';
+import CRTMonitor from './CRTMonitor';
 
 interface ManorSceneProps {
   scrollProgress: number;
@@ -47,6 +49,34 @@ export default function ManorScene({ scrollProgress }: ManorSceneProps) {
           
           {/* Manor Structure */}
           <ManorStructure />
+
+          {/* Interactive Props - Floor 1 (Forge) */}
+          <InteractiveProps type="crate" position={[-2, 0, 2]} label="Python" />
+          <InteractiveProps type="crate" position={[-1, 0, 2]} label="Next.js" />
+          <InteractiveProps type="crate" position={[0, 0, 2]} label="PostgreSQL" />
+
+          <CRTMonitor position={[2, 1, 2]} text="GIF" color="#7b9cba" />
+          <CRTMonitor position={[2, 1, 0]} text="METRICS" color="#c8a882" />
+
+          {/* Interactive Props - Basement (Engine Room) */}
+          <InteractiveProps 
+            type="lever" 
+            position={[3, -5, 0]} 
+            label="Theme Switch"
+            onClick={() => console.log('Lever clicked!')}
+          />
+
+          <InteractiveProps 
+            type="furnace" 
+            position={[0, -6, 0]} 
+            label="Bloatware Furnace"
+            onClick={() => console.log('Furnace clicked! Lighthouse: 100/100')}
+          />
+
+          {/* Interactive Props - Floor 3 (Library) */}
+          <InteractiveProps type="book" position={[-2, 10, 2]} label="Research" />
+          <InteractiveProps type="book" position={[-1.5, 10, 2]} label="Case Studies" />
+          <InteractiveProps type="blueprint" position={[2, 10, 0]} label="System Design" />
           
           {/* Agents on Each Floor */}
           {agents.map((agent) => (
