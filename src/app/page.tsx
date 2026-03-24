@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import CRTOverlay from '@/components/ui/CRTOverlay';
 import StatBox from '@/components/ui/StatBox';
 import { agents } from '@/lib/agents';
+import Floor3Library from '@/components/manor/Floor3-Library';
+import Floor2Switchboard from '@/components/manor/Floor2-Switchboard';
+import Floor1Forge from '@/components/manor/Floor1-Forge';
+import BasementEngineRoom from '@/components/manor/Basement-EngineRoom';
 
 export default function Home() {
   const [chatOpen, setChatOpen] = useState(false);
@@ -55,63 +59,17 @@ export default function Home() {
           // Scroll to explore the Manor
         </h2>
         
-        {/* Floor 3 */}
-        <div className="h-96 border border-glacier-blue rounded-lg mb-8 p-8 relative">
-          <h3 className="text-xl text-pearl-amber mb-4">Floor 3: Library & Strategy</h3>
-          <div className="flex gap-4">
-            {agents.filter(a => a.floor === 3).map(agent => (
-              <div key={agent.id} onClick={() => setActiveAgent(agent.id)}>
-                {/* We'll build the full agent component next */}
-                <div className="w-16 h-16 bg-soft-white bg-opacity-10 rounded flex items-center justify-center">
-                  {agent.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Floor 2 */}
-        <div className="h-96 border border-glacier-blue rounded-lg mb-8 p-8 relative">
-          <h3 className="text-xl text-pearl-amber mb-4">Floor 2: Switchboard & Sales</h3>
-          <div className="flex gap-4">
-            {agents.filter(a => a.floor === 2).map(agent => (
-              <div key={agent.id} onClick={() => setActiveAgent(agent.id)}>
-                <div className="w-16 h-16 bg-soft-white bg-opacity-10 rounded flex items-center justify-center">
-                  {agent.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Floor 1 */}
-        <div className="h-96 border border-glacier-blue rounded-lg mb-8 p-8 relative">
-          <h3 className="text-xl text-pearl-amber mb-4">Floor 1: Forge & Observatory</h3>
-          <div className="flex gap-4">
-            {agents.filter(a => a.floor === 1).map(agent => (
-              <div key={agent.id} onClick={() => setActiveAgent(agent.id)}>
-                <div className="w-16 h-16 bg-soft-white bg-opacity-10 rounded flex items-center justify-center">
-                  {agent.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Basement */}
-        <div className="h-96 border border-glacier-blue rounded-lg mb-8 p-8 relative">
-          <h3 className="text-xl text-pearl-amber mb-4">Basement: Engine Room</h3>
-          <div className="flex gap-4">
-            {agents.filter(a => a.floor === -1).map(agent => (
-              <div key={agent.id} onClick={() => setActiveAgent(agent.id)}>
-                <div className="w-16 h-16 bg-soft-white bg-opacity-10 rounded flex items-center justify-center">
-                  {agent.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+       {/* Floor 3 */}
+      <Floor3Library />
+
+      {/* Floor 2 */}
+      <Floor2Switchboard />
+
+      {/* Floor 1 */}
+      <Floor1Forge />
+
+      {/* Basement */}
+      <BasementEngineRoom />
       
       {/* Footer */}
       <footer className="py-8 text-center text-sm opacity-50">
