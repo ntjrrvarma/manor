@@ -85,3 +85,21 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--copper-glow);
 }
+
+/* 3D Scene Layering */
+.canvas-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.content-layer > * {
+  pointer-events: auto;
+}
