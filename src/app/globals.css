@@ -131,3 +131,50 @@ body {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+
+/* GPU acceleration for animated elements */
+.agent-active,
+.crt-scanline,
+.cursor-blink,
+.stat-box {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduce paint area for scrollable content */
+.min-h-screen {
+  contain: layout style paint;
+}
+
+/* Optimize 3D canvas */
+canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* Smooth scrolling for the page */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Prevent layout shift during loading */
+[data-agent-id] {
+  min-height: 4rem;
+  min-width: 4rem;
+}

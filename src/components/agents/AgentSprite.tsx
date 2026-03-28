@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 interface AgentSpriteProps {
@@ -14,28 +14,21 @@ interface AgentSpriteProps {
   onClick?: () => void;
 }
 
+// Move emoji mapping outside component to avoid re-creation
 const propEmojis: Record<string, string> = {
-  'clipboard': '📋',
-  'magnifying-glass': '🔍',
-  'chalkboard': '📝',
-  'blueprints': '📐',
-  'radio-tower': '📡',
-  'terminal': '💻',
-  'send-button': '📧',
-  'wrench': '🔧',
-  'podium': '🎤',
-  'crates': '📦',
-  'projector': '📽️',
-  'ticker-tape': '📠',
-  'watering-can': '🚿',
-  'lock': '🔒',
-  'memory-drive': '💾',
-  'lever': '🎛️',
-  'shovel': '⛏️',
+  'clipboard': '📋', 'magnifying-glass': '🔍', 'chalkboard': '📝',
+  'blueprints': '📐', 'radio-tower': '📡', 'terminal': '💻',
+  'send-button': '📧', 'wrench': '🔧', 'podium': '🎤',
+  'crates': '📦', 'projector': '📽️', 'ticker-tape': '📠',
+  'watering-can': '🚿', 'lock': '🔒', 'memory-drive': '💾',
+  'lever': '🎛️', 'shovel': '⛏️',
 };
 
-export default function AgentSprite({ agent, isActive = false, onClick }: AgentSpriteProps) {
+const AgentSprite = ({ agent, isActive = false, onClick }: AgentSpriteProps) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Memoize the emoji lookup
+  const agentEmoji = useMemo(() => propEmojis[agent.prop] || '👤', [agent.prop]);
 
   return (
     <motion.div
@@ -49,14 +42,10 @@ export default function AgentSprite({ agent, isActive = false, onClick }: AgentS
       onClick={onClick}
       whileHover={{ scale: 1.1 }}
     >
-      {/* Agent Sprite */}
       <div className="w-16 h-16 bg-soft-white bg-opacity-20 rounded flex items-center justify-center border border-glacier-blue">
-        <span className="text-3xl">
-          {propEmojis[agent.prop] || '👤'}
-        </span>
+        <span className="text-3xl">{agentEmoji}</span>
       </div>
       
-      {/* Agent Name Tag */}
       {(isHovered || isActive) && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -67,10 +56,11 @@ export default function AgentSprite({ agent, isActive = false, onClick }: AgentS
         </motion.div>
       )}
       
-      {/* Active Glow Effect */}
       {isActive && (
         <div className="absolute inset-0 rounded animate-pulse bg-copper-glow opacity-20" />
       )}
     </motion.div>
   );
-}
+};
+
+export default React.memo(AgentSprite);

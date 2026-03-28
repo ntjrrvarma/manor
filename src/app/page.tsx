@@ -330,8 +330,16 @@ export default function Home() {
             `}
             title={`Floor ${floor}`}
             onClick={() => {
-              const floorPositions: Record<number, number> = { 3: 0.25, 2: 0.5, 1: 0.75, -1: 1 };
-              const targetScroll = floorPositions[floor] * document.body.scrollHeight;
+              const getFloorPosition = (f: number): number => {
+                switch(f) {
+                  case 3: return 0.25;
+                  case 2: return 0.5;
+                  case 1: return 0.75;
+                  case -1: return 1;
+                  default: return 0;
+                }
+              };
+              const targetScroll = getFloorPosition(floor) * document.body.scrollHeight;
               window.scrollTo({ top: targetScroll, behavior: 'smooth' });
               playSound('click');
             }}
